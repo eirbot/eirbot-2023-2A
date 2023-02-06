@@ -1,4 +1,7 @@
 #include "Robot.hpp"
+#include "stdint.h"
+#include <cstdint>
+
 
 void Robot::trapeze_naif(float d){
     if (EN_trapeze == true){
