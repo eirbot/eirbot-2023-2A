@@ -2,7 +2,6 @@
 #define brushless_hpp
 
 class Brushless{
-    
     public:
     int init(void);
     float getVelocity(void);
@@ -10,8 +9,9 @@ class Brushless{
 
     private:
     float velocity;
-    
-
+    float Kp;
+    float Ki; 
+    float 
 };
 
 #endif

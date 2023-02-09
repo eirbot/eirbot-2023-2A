@@ -74,4 +74,3 @@ void Odometrie::fonction_periodique(){
     theta = theta + delta_theta * (fixe_tick_md + fixe_tick_mg); // rad 
     pol2cart(r, theta);
 }
-
