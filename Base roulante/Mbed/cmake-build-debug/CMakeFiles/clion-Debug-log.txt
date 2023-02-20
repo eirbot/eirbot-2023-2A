@@ -1,1 +1,0 @@
-CMakeLists.txt not found in C:\Users\leova\OneDrive\Eirbot\Coupe 23 🏆\eirbot-2023-2A\Base roulante\Mbed Select CMakeLists.txt
