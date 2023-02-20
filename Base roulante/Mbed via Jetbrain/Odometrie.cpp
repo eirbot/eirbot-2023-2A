@@ -4,33 +4,35 @@
 
 #include "Odometrie.h"
 
+#include <cmath>
+
 namespace Odometrie {
-// Constructeur :
+    // Constructeur :
     Odometrie::Odometrie(){
         r = 0.;
         theta = M_PI_2;
-        pol2cart(r, theta);
+        pol2cart();
         tick_md = 0;
         tick_mg = 0;
     }
 
-// Get
-    float Odometrie::get_x(){
+    // Get
+    double Odometrie::get_x() const {
         return x;
     }
-    float Odometrie::get_y(){
+    double Odometrie::get_y() const{
         return y;
     }
-    float Odometrie::get_r(){
+    double Odometrie::get_r() const{
         return r;
     }
-    float Odometrie::get_theta(){
+    double Odometrie::get_theta() const{
         return theta;
     }
-    int Odometrie::get_tick_md(){
+    int Odometrie::get_tick_md() const{
         return tick_md;
     }
-    int Odometrie::get_tick_mg(){
+    int Odometrie::get_tick_mg() const{
         return tick_mg;
     }
 
@@ -55,17 +57,17 @@ namespace Odometrie {
     }
 
 // Fonctions
-    void Odometrie::cart2pol(float x, float y){
-        r = sqrt(x * x + y * y);
+    void Odometrie::cart2pol(){
+        r = std::sqrt(x * x + y * y);
         if (x != 0){
-            theta = atan(y/x);
+            theta = std::atan(y/x);
         } else {
             theta = M_PI_2;
         }
     }
-    void Odometrie::pol2cart(float r, float theta){
-        x = r * cos(theta);
-        y = r * sin(theta);
+    void Odometrie::pol2cart(){
+        x = r * std::cos(theta);
+        y = r * std::sin(theta);
     }
 
     void Odometrie::fonction_periodique(){
@@ -74,8 +76,8 @@ namespace Odometrie {
         set_tick_md(0);
         set_tick_mg(0);
         r = 0.5 * diametre_roue * delta_theta * (fixe_tick_md + fixe_tick_mg); // m
-        r = r / 1000.;
-        theta = theta + delta_theta * (fixe_tick_md + fixe_tick_mg); // rad
-        pol2cart(r, theta);
+        r /= 1000.;
+        theta = theta + delta_theta * (float) (fixe_tick_md + fixe_tick_mg); // rad
+        pol2cart();
     }
 } // Odometrie

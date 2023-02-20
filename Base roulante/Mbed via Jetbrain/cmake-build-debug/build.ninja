@@ -61,6 +61,12 @@ build CMakeFiles/Mbed_via_Jetbrain.dir/Odometrie.cpp.obj: CXX_COMPILER__Mbed_via
   OBJECT_DIR = CMakeFiles\Mbed_via_Jetbrain.dir
   OBJECT_FILE_DIR = CMakeFiles\Mbed_via_Jetbrain.dir
 
+build CMakeFiles/Mbed_via_Jetbrain.dir/Brushless.cpp.obj: CXX_COMPILER__Mbed_via_Jetbrain_Debug C$:/Users/leova/OneDrive/Eirbot/Coupe$ 23/eirbot-2023-2A/Base$ roulante/Mbed$ via$ Jetbrain/Brushless.cpp || cmake_object_order_depends_target_Mbed_via_Jetbrain
+  DEP_FILE = CMakeFiles\Mbed_via_Jetbrain.dir\Brushless.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Mbed_via_Jetbrain.dir
+  OBJECT_FILE_DIR = CMakeFiles\Mbed_via_Jetbrain.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Mbed_via_Jetbrain
@@ -69,7 +75,7 @@ build CMakeFiles/Mbed_via_Jetbrain.dir/Odometrie.cpp.obj: CXX_COMPILER__Mbed_via
 #############################################
 # Link the executable Mbed_via_Jetbrain.exe
 
-build Mbed_via_Jetbrain.exe: CXX_EXECUTABLE_LINKER__Mbed_via_Jetbrain_Debug CMakeFiles/Mbed_via_Jetbrain.dir/main.cpp.obj CMakeFiles/Mbed_via_Jetbrain.dir/Odometrie.cpp.obj
+build Mbed_via_Jetbrain.exe: CXX_EXECUTABLE_LINKER__Mbed_via_Jetbrain_Debug CMakeFiles/Mbed_via_Jetbrain.dir/main.cpp.obj CMakeFiles/Mbed_via_Jetbrain.dir/Odometrie.cpp.obj CMakeFiles/Mbed_via_Jetbrain.dir/Brushless.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Mbed_via_Jetbrain.dir
