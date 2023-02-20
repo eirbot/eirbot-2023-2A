@@ -1,0 +1,3 @@
+C:/Users/leova/OneDrive/Eirbot/Coupe 23/eirbot-2023-2A/Base roulante/Mbed via Jetbrain/cmake-build-debug/CMakeFiles/Mbed_via_Jetbrain.dir
+C:/Users/leova/OneDrive/Eirbot/Coupe 23/eirbot-2023-2A/Base roulante/Mbed via Jetbrain/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/leova/OneDrive/Eirbot/Coupe 23/eirbot-2023-2A/Base roulante/Mbed via Jetbrain/cmake-build-debug/CMakeFiles/rebuild_cache.dir
