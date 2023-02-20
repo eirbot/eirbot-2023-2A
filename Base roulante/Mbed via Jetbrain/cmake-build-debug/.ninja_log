@@ -1,0 +1,5 @@
+# ninja log v5
+7	259	6986103606715023	build.ninja	17f0755cc7436b35
+0	81	6986103608126181	CMakeFiles/Mbed_via_Jetbrain.dir/Odometrie.cpp.obj	bd48e5919cc5d6fa
+4	387	6986103611185447	CMakeFiles/Mbed_via_Jetbrain.dir/main.cpp.obj	ad806f74fdf28a0d
+389	576	6986103613045425	Mbed_via_Jetbrain.exe	9944246db9f4c36a
