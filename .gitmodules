@@ -1,0 +1,4 @@
+[submodule "roulante/Mbed"]
+	path = roulante/Mbed
+	url = git@github.com:eirbot/Mbed-roulante-2023-2A.git
+    branch = main
