@@ -1,0 +1,13 @@
+../Core/Src/functions.c:10:5:_write	4	static,ignoring_inline_asm
+../Core/Src/functions.c:19:6:generateStep	32	static
+../Core/Src/functions.c:40:7:readHall_L	16	static
+../Core/Src/functions.c:47:8:readHall_R	16	static
+../Core/Src/functions.c:54:8:decodeHall	12	static
+../Core/Src/functions.c:105:6:newdecodeHall	16	static
+../Core/Src/functions.c:165:6:updateOutput_L	8	static
+../Core/Src/functions.c:186:6:updateOutput_R	8	static
+../Core/Src/functions.c:221:9:calculateSpeed	0	static
+../Core/Src/functions.c:237:6:writeCommand_L	0	static
+../Core/Src/functions.c:253:6:writeCommand_R	0	static
+../Core/Src/functions.c:269:6:PIDS_Prop	8	static
+../Core/Src/functions.c:294:6:parseurSpeed	24	static
