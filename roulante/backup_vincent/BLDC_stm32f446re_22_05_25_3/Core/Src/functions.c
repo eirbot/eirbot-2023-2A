@@ -18,7 +18,8 @@ int _write(int file, char *ptr, int len)
 
 void generateStep(uint16_t t0, uint16_t value0, uint16_t t1, uint16_t value1, uint16_t samples, uint16_t  data[])
 {
-	/* Generate a 2 step function : from 0 to t0 => data=0 / from t0 to t1 => data=value0 / from t1 to samples => data=value1
+	/* 
+	Generate a 2 step function : from 0 to t0 => data=0 / from t0 to t1 => data=value0 / from t1 to samples => data=value1
 	*/
 	for (int i=0; i<samples ; i++)
 	{
