@@ -1,0 +1,5 @@
+C:\Users\leova\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\223.8836.42\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" -S "C:\Users\leova\OneDrive\Eirbot\Coupe 23\eirbot-2023-2A\roulante\backup_vincent\BLDC_stm32f446re_22_05_25_3" -B "C:\Users\leova\OneDrive\Eirbot\Coupe 23\eirbot-2023-2A\roulante\backup_vincent\BLDC_stm32f446re_22_05_25_3\cmake-build-debug"
+-- Minimal optimization, debug info included
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/leova/OneDrive/Eirbot/Coupe 23/eirbot-2023-2A/roulante/backup_vincent/BLDC_stm32f446re_22_05_25_3/cmake-build-debug

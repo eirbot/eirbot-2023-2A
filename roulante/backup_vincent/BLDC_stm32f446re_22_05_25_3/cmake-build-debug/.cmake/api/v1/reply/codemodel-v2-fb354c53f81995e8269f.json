@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.24"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "BLDC_stm32f446re",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "BLDC_stm32f446re.elf::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-BLDC_stm32f446re.elf-Debug-aa0d46793a4465d4972c.json",
+					"name" : "BLDC_stm32f446re.elf",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/leova/OneDrive/Eirbot/Coupe 23/eirbot-2023-2A/roulante/backup_vincent/BLDC_stm32f446re_22_05_25_3/cmake-build-debug",
+		"source" : "C:/Users/leova/OneDrive/Eirbot/Coupe 23/eirbot-2023-2A/roulante/backup_vincent/BLDC_stm32f446re_22_05_25_3"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

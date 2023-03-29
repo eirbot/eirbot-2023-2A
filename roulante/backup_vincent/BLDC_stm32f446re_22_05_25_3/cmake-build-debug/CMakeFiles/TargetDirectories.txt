@@ -1,0 +1,3 @@
+C:/Users/leova/OneDrive/Eirbot/Coupe 23/eirbot-2023-2A/roulante/backup_vincent/BLDC_stm32f446re_22_05_25_3/cmake-build-debug/CMakeFiles/BLDC_stm32f446re.elf.dir
+C:/Users/leova/OneDrive/Eirbot/Coupe 23/eirbot-2023-2A/roulante/backup_vincent/BLDC_stm32f446re_22_05_25_3/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/leova/OneDrive/Eirbot/Coupe 23/eirbot-2023-2A/roulante/backup_vincent/BLDC_stm32f446re_22_05_25_3/cmake-build-debug/CMakeFiles/rebuild_cache.dir

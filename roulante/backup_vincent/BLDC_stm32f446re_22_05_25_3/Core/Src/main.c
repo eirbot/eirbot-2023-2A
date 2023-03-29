@@ -755,12 +755,10 @@ static void MX_GPIO_Init(void)
  */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-
 	//check the timer version (generic function)
 	if (htim == &htim6)
 	/* 100kHz interrupt for hall reading and Moore state machine calculations
 	*/
-
 	{
 		if(millis_div)
 		{

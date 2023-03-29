@@ -1,0 +1,19 @@
+C:\Users\leova\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\223.8836.42\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" -S "C:\Users\leova\OneDrive\Eirbot\Coupe 23\eirbot-2023-2A\roulante\backup_vincent\Vincent review 11 03 - FeedForward selon la consigne vitesse" -B "C:\Users\leova\OneDrive\Eirbot\Coupe 23\eirbot-2023-2A\roulante\backup_vincent\Vincent review 11 03 - FeedForward selon la consigne vitesse\cmake-build-debug"
+-- Minimal optimization, debug info included
+-- Configuring done
+CMake Warning in CMakeLists.txt:
+  The object file directory
+
+    C:/Users/leova/OneDrive/Eirbot/Coupe 23/eirbot-2023-2A/roulante/backup_vincent/Vincent review 11 03 - FeedForward selon la consigne vitesse/cmake-build-debug/CMakeFiles/BLDC_stm32f446re.elf.dir/
+
+  has 194 characters.  The maximum full path to an object file is 250
+  characters (see CMAKE_OBJECT_PATH_MAX).  Object file
+
+    Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj
+
+  cannot be safely placed under this directory.  The build may not work
+  correctly.
+
+
+-- Generating done
+-- Build files have been written to: C:/Users/leova/OneDrive/Eirbot/Coupe 23/eirbot-2023-2A/roulante/backup_vincent/Vincent review 11 03 - FeedForward selon la consigne vitesse/cmake-build-debug
