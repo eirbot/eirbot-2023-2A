@@ -71,6 +71,8 @@ void Error_Handler(void);
 #define BL_L_GPIO_Port GPIOB
 #define CL_L_Pin GPIO_PIN_1
 #define CL_L_GPIO_Port GPIOB
+#define SwitchBasGauche_Pin GPIO_PIN_10
+#define SwitchBasGauche_GPIO_Port GPIOB
 #define AL_L_Pin GPIO_PIN_13
 #define AL_L_GPIO_Port GPIOB
 #define BL_R_Pin GPIO_PIN_14
@@ -95,6 +97,12 @@ void Error_Handler(void);
 #define TCK_GPIO_Port GPIOA
 #define SWO_Pin GPIO_PIN_3
 #define SWO_GPIO_Port GPIOB
+#define SwitchHautGauche_Pin GPIO_PIN_4
+#define SwitchHautGauche_GPIO_Port GPIOB
+#define SwitchBasGaucheB5_Pin GPIO_PIN_5
+#define SwitchBasGaucheB5_GPIO_Port GPIOB
+#define SwitchHautDroit_Pin GPIO_PIN_6
+#define SwitchHautDroit_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
