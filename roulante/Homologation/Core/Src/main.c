@@ -100,6 +100,8 @@ int16_t cpt=0;
 bool en_MOVE=0;
 bool en_STOP=0;
 
+volatile uint32_t tick_millis = 0;
+
 volatile uint16_t i=0; //read speed data
 
 uint16_t samples=1000;
@@ -125,6 +127,7 @@ static void MX_TIM1_Init(void);
 static void MX_TIM8_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_TIM7_Init(void);
+void delay(uint32_t millis);
 /**
   * @brief  The application entry point.
   * @retval int
@@ -167,13 +170,15 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim7);
   TIM7->ARR = FREQ_TIM7/100; //set TIM7 interrupt frequency 100Hz
 
-//  HAL_Delay(100);
-  en_MOVE = 1;
-  parseurSpeed(-500,0,1000);
-  while(en_MOVE);
+  uint16_t speedRef = 1000;
 
+  HAL_Delay(1000);
   en_MOVE = 1;
-  parseurSpeed(500,0,1000);
+  parseurSpeed(500,0,speedRef);
+  while(en_MOVE);
+  HAL_Delay(1000);
+//  en_MOVE = 1;
+//  parseurSpeed(-1000,0,speedRef);
 //  parseurSpeed(0,0,0);
 
   /* Infinite loop */
@@ -181,6 +186,12 @@ int main(void)
   {
 
   }
+}
+
+void delay(uint32_t millis){
+	tick_millis = 0;
+	while(tick_millis/10 == millis);
+	tick_millis = 0;
 }
 
 /**
@@ -717,6 +728,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	/*
 	Update duty cycle if needed at 100Hz
 	*/
+		tick_millis++;
 		if(!en_STOP)
 		{
 			if(en_MOVE)

@@ -239,16 +239,14 @@ void PIDS_PI(struct PID *PI, struct dataSpeed *data_L,struct dataSpeed *data_R, 
 	else	data_R->cmdsat = data_R->cmd;
 }
 
-
 bool parseurSpeed(int16_t distance, int16_t angle ,uint16_t speed_ref)
 {
-	uint16_t maxInit = 1500;
-	uint16_t nb_fin = 0;
+	uint16_t maxInitL = 2500,  maxInitR = 2000;
 	float fin = 0.1;
-	float dif = 0.7;
-	float moy = 1.;
-	float pourcentR = moy + dif/2;
-	float pourcentL = moy - dif/2;
+
+	uint16_t minR = 2000; // si non nul "recule"
+	uint16_t minL = 1500; // si non nul "recule"
+	float dif_dur = -0.01;
 
 
 	for (uint16_t j=0; j<1000 ; j++)    //init speed consigne
@@ -256,105 +254,99 @@ bool parseurSpeed(int16_t distance, int16_t angle ,uint16_t speed_ref)
 		speedRef_L[j]=0;  speedRef_R[j]=0;
 	}
 
-	uint16_t t100Hz_angle = 0;
-	if (angle > 0){
-		t100Hz_angle = (uint16_t) 635*((float) angle)/((float) speed_ref); //set time at constant speed
-	}
-	else if (angle < 0){
-		t100Hz_angle = (uint16_t) 635*((float) -angle)/((float) speed_ref); //set time at constant speed
-	}
-	printf("angle : %d\n", t100Hz_angle);
-
-	nb_fin = (int)(fin*t100Hz_angle);
-
-	if(t100Hz_angle > FREQ_TIM7) return 1; //error flag if overflow
-
-	if(angle > 0)
-	{
-		for (uint16_t j=0; j<2 ; j++)
-		{
-			speedRef_L[j]=-maxInit; speedRef_R[j]=-maxInit;
-		}
-		for (uint16_t j=2; j<t100Hz_angle-nb_fin-1 ; j++)
-		{
-			speedRef_L[j]=-speed_ref; speedRef_R[j]=-speed_ref;
-		}
-		for (uint16_t j = t100Hz_angle-nb_fin-1; j < t100Hz_angle-1; j++)
-		{
-			speedRef_L[j]=(int)(speed_ref*pourcentL); speedRef_R[j]=(int) (speed_ref*pourcentR);
-		}
-		for (uint16_t j=t100Hz_angle-1; j<t100Hz_angle; j++)
-		{
-			speedRef_L[j]=0; speedRef_R[j]=0;
-		}
-	}
-	else if(angle < 0)
-	{
-		for(uint16_t j = 0; j < 2; j++)
-		{
-			speedRef_L[j]=maxInit;  speedRef_R[j]=maxInit;
-		}
-		for (uint16_t j = 2; j < t100Hz_angle-nb_fin-1 ; j++)
-		{
-			speedRef_L[j]=speed_ref;  speedRef_R[j]=speed_ref;
-		}
-		for (uint16_t j = t100Hz_angle-nb_fin-1; j < t100Hz_angle-1; j++)
-		{
-			speedRef_L[j]=-(int)(speed_ref*pourcentL); speedRef_R[j]=-(int)(speed_ref*pourcentR);
-		}
-		for (uint16_t j = t100Hz_angle-1; j < t100Hz_angle; j++)
-		{
-			speedRef_L[j]=0; speedRef_R[j]=0;
-		}
-	}
-
 	if(distance != 0)
 	{
+		float durL = 1.;
+		float durR = 1.;
+		uint16_t nb_fin = 0;
 		uint16_t t100Hz_dist = 0;
 		if (distance > 0)
 		{
 			t100Hz_dist = (uint16_t) 260*((float) distance)/((float) speed_ref); //error flag if overflow
+			nb_fin = (int)(fin*t100Hz_dist);
+			if (dif_dur < 0){
+				durL = nb_fin*(1+dif_dur);
+			}
+			else if (dif_dur > 0){
+				durR = nb_fin*(1-dif_dur);
+			}
 		}
 		else if (distance < 0){
 			t100Hz_dist = (uint16_t) 260*((float) -distance)/((float) speed_ref); //error flag if overflow
+			nb_fin = (int)(fin*t100Hz_dist);
+			if (dif_dur < 0){
+				durL = nb_fin*(1+dif_dur);
+			}
+			else if (dif_dur > 0){
+				durR = nb_fin*(1-dif_dur);
+			}
 		}
-		printf("dist : %d\n", t100Hz_dist);
-		nb_fin = (int)(fin*t100Hz_dist);
+
 
 		if(t100Hz_dist > FREQ_TIM7)  return 1; //error flag if overflow
 
+    	// distance > 0 -> L - R +
+		// distance < 0 -> L + R -
 
 		if (distance > 0){
-			for (uint16_t j=0; j<2; j++)
+			for (uint16_t j=0; j<2; j++) 							// pick
 			{
-				speedRef_L[j]=-maxInit; speedRef_R[j]=maxInit;
+				speedRef_L[j] = -maxInit; speedRef_R[j] = maxInit;		// temps haut
 			}
 			for (uint16_t j=2; j<t100Hz_dist-nb_fin-1; j++)
 			{
-				speedRef_L[j]=-speed_ref; speedRef_R[j]=speed_ref;
+				speedRef_L[j] = -speed_ref; speedRef_R[j] = speed_ref;
 			}
-			for (uint16_t j = t100Hz_dist-nb_fin-1; j < t100Hz_dist-1; j++)
+			for (uint16_t j = t100Hz_dist-nb_fin-1; j < t100Hz_dist-1; j++) // deceleration
 			{
-				speedRef_L[j]=(int)(speed_ref*pourcentL); speedRef_R[j]=-(int)(speed_ref*pourcentR);
+				float t = j/(t100Hz_dist-nb_fin-1);
+				// Left
+				if (t < durL){
+					speedRef_L[j] = -(int)(speed_ref + (minL - speed_ref)*t/(durL));
+				}
+				else {
+					speedRef_L[j] = minL;
+				}
+				// Right
+				if (t < durR){
+					speedRef_R[j] = (int)(speed_ref + (minR - speed_ref)*t/(durR));
+				}
+				else {
+					speedRef_R[j] = -minR;
+				}
 			}
 			for (uint16_t j=t100Hz_dist-1; j<t100Hz_dist; j++)
 			{
 				speedRef_L[j]=0; speedRef_R[j]=0;
 			}
 		}
-		else // distance < 0
+		else // distance < 0 // L + R -
 		{
-			for (uint16_t j=0; j<2; j++)
+			for (uint16_t j=0; j<2; j++) 							// pick
 			{
-				speedRef_L[j]=maxInit; speedRef_R[j]=-maxInit;
+				speedRef_L[j] = maxInit; speedRef_R[j] = -maxInit;		// temps haut
 			}
-			for (uint16_t j=2; j<t100Hz_dist-6; j++)
+			for (uint16_t j=2; j<t100Hz_dist-nb_fin-1; j++)
 			{
-				speedRef_L[j]=speed_ref; speedRef_R[j]=-speed_ref;
+				speedRef_L[j] = speed_ref; speedRef_R[j] = -speed_ref;
 			}
-			for (uint16_t j = t100Hz_dist-nb_fin-1; j < t100Hz_dist-1; j++)
+			for (uint16_t j = t100Hz_dist-nb_fin-1; j < t100Hz_dist-1; j++) // deceleration
 			{
-				speedRef_L[j]=-(int)(speed_ref*pourcentL); speedRef_R[j]=(int)(speed_ref*pourcentR);
+				float t = j/(t100Hz_dist-nb_fin-1);
+				// Left
+				if (t < durL){
+					speedRef_L[j] = (int)(speed_ref + (minL - speed_ref)*t/(durL));
+				}
+				else {
+					speedRef_L[j] = -minL;
+				}
+				// Right
+				if (t < durR){
+					speedRef_R[j] = -(int)(speed_ref + (minR - speed_ref)*t/(durR));
+				}
+				else {
+					speedRef_R[j] = minR;
+				}
 			}
 			for (uint16_t j=t100Hz_dist-1; j<t100Hz_dist; j++)
 			{
@@ -362,6 +354,56 @@ bool parseurSpeed(int16_t distance, int16_t angle ,uint16_t speed_ref)
 			}
 		}
 	}
+
+
+//
+//		if (distance > 0){ // L - R +
+//			for (uint16_t j=0; j<2; j++)
+//			{
+//				speedRef_L[j]=-maxInit; speedRef_R[j]=maxInit;
+//			}
+//			for (uint16_t j=2; j<t100Hz_dist-nb_fin-1; j++)
+//			{
+//				speedRef_L[j]=-speed_ref; speedRef_R[j]=speed_ref;
+//			}
+//			for (uint16_t j = t100Hz_dist-nb_fin-1; j < t100Hz_dist-1; j++)
+//			{
+//				// Left
+//				speedRef_L[j]=(int)(-speed_ref + (- speed_ref - minL )* j/(nb_fin*t100Hz_dist-nb_fin-1));
+//				// Right
+//
+//				speedRef_R[j]= (int)(speed_ref + (-minR-speed_ref * j/(nb_fin*t100Hz_dist-nb_fin-1)));
+//			}
+//			for (uint16_t j=t100Hz_dist-1; j<t100Hz_dist; j++)
+//			{
+//				speedRef_L[j]=0; speedRef_R[j]=0;
+//			}
+//		}
+//		else // distance < 0 // L + R -
+//		{
+//			for (uint16_t j=0; j<2; j++)
+//			{
+//				speedRef_L[j]=maxInit; speedRef_R[j]=-maxInit;
+//			}
+//			for (uint16_t j=2; j<t100Hz_dist-nb_fin-1; j++)
+//			{
+//				speedRef_L[j]=speed_ref; speedRef_R[j]=-speed_ref;
+//			}
+//			for (uint16_t j = t100Hz_dist-nb_fin-1; j < t100Hz_dist-1; j++)
+//			{
+//				// Left
+//
+//				speedRef_L[j]= (int)(speed_ref + (-minR-speed_ref * j/(nb_fin*t100Hz_dist-nb_fin-1)));
+//				// Right
+//				speedRef_R[j]=(int)(-speed_ref + (- speed_ref - minL )* j/(nb_fin*t100Hz_dist-nb_fin-1));
+//
+//			}
+//			for (uint16_t j=t100Hz_dist-1; j<t100Hz_dist; j++)
+//			{
+//				speedRef_L[j]=0; speedRef_R[j]=0;
+//			}
+//		}
+
   return 0;  //OK
 }
 
