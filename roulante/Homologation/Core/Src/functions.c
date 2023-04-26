@@ -242,10 +242,10 @@ void PIDS_PI(struct PID *PI, struct dataSpeed *data_L,struct dataSpeed *data_R, 
 bool parseurSpeed(float distance, int16_t angle ,uint16_t speed_ref)
 {
 	uint16_t maxInitL = 1500,  maxInitR = 3000;
-	float fin = -0.1;
+	float fin = -0.15;
 
-	uint16_t minL = 100, minR = 1700; // si non nul "recule"
-	float dif_dur = 0.;
+	uint16_t minL = 1500, minR = 2500; // si non nul "recule"
+	float dif_dur = 0;
 
 
 	for (uint16_t j=0; j<1000 ; j++)    //init speed consigne
@@ -261,7 +261,7 @@ bool parseurSpeed(float distance, int16_t angle ,uint16_t speed_ref)
 		uint16_t t100Hz_dist = 0;
 		if (distance > 0)
 		{
-			t100Hz_dist = (uint16_t) 500*distance/((float) speed_ref); //error flag if overflow
+			t100Hz_dist = (uint16_t) 480*distance/((float) speed_ref); //error flag if overflow
 
 			nb_fin = (uint16_t)(fin*t100Hz_dist);
 			if (dif_dur < 0){
@@ -303,17 +303,17 @@ bool parseurSpeed(float distance, int16_t angle ,uint16_t speed_ref)
 				float t = j/(t100Hz_dist-nb_fin-1);
 				// Left
 				if (t < durL){
-					speedRef_L[j] = -(int)(speed_ref + (minL - speed_ref)*t/(durL));
+					speedRef_L[j] = minL;
 				}
 				else {
-					speedRef_L[j] = minL;
+					speedRef_L[j] = 0;
 				}
 				// Right
 				if (t < durR){
-					speedRef_R[j] = (int)(speed_ref + (minR - speed_ref)*t/(durR));
+					speedRef_R[j] = -minR;
 				}
 				else {
-					speedRef_R[j] = -minR;
+					speedRef_R[j] = 0;
 				}
 			}
 			for (uint16_t j=t100Hz_dist-1; j<t100Hz_dist; j++)
