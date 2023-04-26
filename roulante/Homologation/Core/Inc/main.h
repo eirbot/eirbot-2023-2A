@@ -69,16 +69,14 @@ void Error_Handler(void);
 #define IC_L_GPIO_Port GPIOC
 #define IA_R_Pin GPIO_PIN_3
 #define IA_R_GPIO_Port GPIOC
+#define PINCE_Pin GPIO_PIN_0
+#define PINCE_GPIO_Port GPIOA
 #define USART_TX_Pin GPIO_PIN_2
 #define USART_TX_GPIO_Port GPIOA
 #define USART_RX_Pin GPIO_PIN_3
 #define USART_RX_GPIO_Port GPIOA
-#define BAT_V_Pin GPIO_PIN_4
-#define BAT_V_GPIO_Port GPIOA
 #define LD2_Pin GPIO_PIN_5
 #define LD2_GPIO_Port GPIOA
-#define BAT_I_Pin GPIO_PIN_6
-#define BAT_I_GPIO_Port GPIOA
 #define AL_R_Pin GPIO_PIN_7
 #define AL_R_GPIO_Port GPIOA
 #define IB_R_Pin GPIO_PIN_4
@@ -123,6 +121,8 @@ void Error_Handler(void);
 #define PUSHER_GPIO_Port GPIOD
 #define SWO_Pin GPIO_PIN_3
 #define SWO_GPIO_Port GPIOB
+#define NANO_Pin GPIO_PIN_4
+#define NANO_GPIO_Port GPIOB
 #define H2_L_Pin GPIO_PIN_5
 #define H2_L_GPIO_Port GPIOB
 #define H3_L_Pin GPIO_PIN_6
@@ -133,6 +133,7 @@ void Error_Handler(void);
 #define H2_R_GPIO_Port GPIOB
 #define H3_R_Pin GPIO_PIN_9
 #define H3_R_GPIO_Port GPIOB
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

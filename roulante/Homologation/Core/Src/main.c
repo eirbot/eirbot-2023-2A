@@ -134,58 +134,96 @@ void delay(uint32_t millis);
   */
 int main(void)
 {
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+	/* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+	HAL_Init();
 
-  /* Configure the system clock */
-  SystemClock_Config();
+	/* Configure the system clock */
+	SystemClock_Config();
 
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_USART2_UART_Init();
-  MX_ADC1_Init();
-  MX_TIM1_Init();
-  MX_TIM8_Init();
-  MX_TIM6_Init();
-  MX_TIM7_Init();
+	/* Initialize all configured peripherals */
+	MX_GPIO_Init();
+	MX_USART2_UART_Init();
+	MX_ADC1_Init();
+	MX_TIM1_Init();
+	MX_TIM8_Init();
+	MX_TIM6_Init();
+	MX_TIM7_Init();
 
-  //PWM START TIMER1
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-  HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
-  HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2);
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
-  HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
+	//PWM START TIMER1
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+	HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+	HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+	HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
 
-  //PWM START TIMER8
-  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_1);
-  HAL_TIMEx_PWMN_Start(&htim8, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_2);
-  HAL_TIMEx_PWMN_Start(&htim8, TIM_CHANNEL_2);
-  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_3);
-  HAL_TIMEx_PWMN_Start(&htim8, TIM_CHANNEL_3);
+	//PWM START TIMER8
+	HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_1);
+	HAL_TIMEx_PWMN_Start(&htim8, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_2);
+	HAL_TIMEx_PWMN_Start(&htim8, TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_3);
+	HAL_TIMEx_PWMN_Start(&htim8, TIM_CHANNEL_3);
 
-  //START INTERRUPTS
-  HAL_TIM_Base_Start_IT(&htim6);
-  HAL_TIM_Base_Start_IT(&htim7);
-  TIM7->ARR = FREQ_TIM7/100; //set TIM7 interrupt frequency 100Hz
+	//START INTERRUPTS
+	HAL_TIM_Base_Start_IT(&htim6);
+	HAL_TIM_Base_Start_IT(&htim7);
+	TIM7->ARR = FREQ_TIM7/100; //set TIM7 interrupt frequency 100Hz
 
-  uint16_t speedRef = 1000;
+	uint16_t speedRef = 1000;
 
-  HAL_Delay(1000);
-  en_MOVE = 1;
-  parseurSpeed(500,0,speedRef);
-  while(en_MOVE);
-  HAL_Delay(1000);
-//  en_MOVE = 1;
-//  parseurSpeed(-1000,0,speedRef);
-//  parseurSpeed(0,0,0);
+	HAL_Delay(1000);
 
-  /* Infinite loop */
-  while (1)
-  {
+	en_MOVE = 1;
+	parseurSpeed(100,0,speedRef);
+	while(en_MOVE);
+	HAL_Delay(100);
+//
+//	HAL_GPIO_WritePin(PINCE_GPIO_Port, PINCE_Pin, GPIO_PIN_SET);
+//	HAL_Delay(10);
+//	HAL_GPIO_WritePin(PINCE_GPIO_Port, PINCE_Pin, GPIO_PIN_RESET);
+//	HAL_Delay(5000);
+//
+//	en_MOVE = 1;
+//	parseurSpeed(-300,0,speedRef);
+//	while(en_MOVE);
+//	HAL_Delay(100);
+//
+//	HAL_GPIO_WritePin(PINCE_GPIO_Port, PINCE_Pin, GPIO_PIN_SET);
+//	HAL_Delay(10);
+//	HAL_GPIO_WritePin(PINCE_GPIO_Port, PINCE_Pin, GPIO_PIN_RESET);
+//	HAL_Delay(1000);
+//
+//	en_MOVE = 1;
+//	parseurSpeed(10,0,speedRef);
+//	while(en_MOVE);
+//	HAL_Delay(1000);
+//
+//	en_MOVE = 1;
+//	parseurSpeed(120,0,speedRef);
+//	while(en_MOVE);
+//	HAL_Delay(1000);
+//
+//	en_MOVE = 1;
+//	parseurSpeed(1038,0,speedRef);
+//	while(en_MOVE);
+//	HAL_Delay(1000);
+//
+//	en_MOVE = 1;
+//	parseurSpeed(10,0,speedRef);
+//	while(en_MOVE);
+//	HAL_Delay(1000);
+//
+//	en_MOVE = 1;
+//	parseurSpeed(120,0,speedRef);
+//	while(en_MOVE);
+//	HAL_Delay(1000);
 
-  }
+	/* Infinite loop */
+	while (1)
+	{
+
+	}
 }
 
 void delay(uint32_t millis){
@@ -289,7 +327,7 @@ static void MX_ADC1_Init(void)
 
   /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
   */
-  sConfig.Channel = ADC_CHANNEL_4;
+  sConfig.Channel = ADC_CHANNEL_14;
   sConfig.Rank = 2;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
@@ -298,6 +336,7 @@ static void MX_ADC1_Init(void)
 
   /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
   */
+  sConfig.Channel = ADC_CHANNEL_10;
   sConfig.Rank = 3;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
@@ -306,6 +345,7 @@ static void MX_ADC1_Init(void)
 
   /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
   */
+  sConfig.Channel = ADC_CHANNEL_11;
   sConfig.Rank = 4;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
@@ -314,6 +354,7 @@ static void MX_ADC1_Init(void)
 
   /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
   */
+  sConfig.Channel = ADC_CHANNEL_14;
   sConfig.Rank = 5;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
@@ -322,6 +363,7 @@ static void MX_ADC1_Init(void)
 
   /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
   */
+  sConfig.Channel = ADC_CHANNEL_12;
   sConfig.Rank = 6;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
@@ -330,6 +372,7 @@ static void MX_ADC1_Init(void)
 
   /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
   */
+  sConfig.Channel = ADC_CHANNEL_13;
   sConfig.Rank = 7;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
@@ -338,6 +381,7 @@ static void MX_ADC1_Init(void)
 
   /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
   */
+  sConfig.Channel = ADC_CHANNEL_14;
   sConfig.Rank = 8;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
@@ -632,6 +676,8 @@ static void MX_USART2_UART_Init(void)
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
+/* USER CODE BEGIN MX_GPIO_Init_1 */
+/* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
@@ -641,7 +687,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, PINCE_Pin|LD2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, EN_B2_Pin|EN_B3_Pin, GPIO_PIN_RESET);
@@ -649,18 +695,21 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(PUSHER_GPIO_Port, PUSHER_Pin, GPIO_PIN_RESET);
 
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(NANO_GPIO_Port, NANO_Pin, GPIO_PIN_RESET);
+
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : LD2_Pin */
-  GPIO_InitStruct.Pin = LD2_Pin;
+  /*Configure GPIO pins : PINCE_Pin LD2_Pin */
+  GPIO_InitStruct.Pin = PINCE_Pin|LD2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : H1_L_Pin H2_L_Pin H3_L_Pin H1_R_Pin
                            H2_R_Pin H3_R_Pin */
@@ -690,6 +739,15 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(PUSHER_GPIO_Port, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : NANO_Pin */
+  GPIO_InitStruct.Pin = NANO_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(NANO_GPIO_Port, &GPIO_InitStruct);
+
+/* USER CODE BEGIN MX_GPIO_Init_2 */
+/* USER CODE END MX_GPIO_Init_2 */
 }
 
 /**
