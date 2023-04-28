@@ -239,10 +239,10 @@ void PIDS_PI(struct PID *PI, struct dataSpeed *data_L,struct dataSpeed *data_R, 
 	else	data_R->cmdsat = data_R->cmd;
 }
 
-bool parseurSpeed(float distance, int16_t angle ,uint16_t speed_ref)
+bool parseurSpeed(int16_t distance, int16_t angle ,uint16_t speed_ref)
 {
-	uint16_t maxInitL = 1500,  maxInitR = 3000;
-	float fin = -0.15;
+	uint16_t maxInitL = 1500,  maxInitR = 2500;
+	float fin = 0.2;
 
 	uint16_t minL = 1500, minR = 2500; // si non nul "recule"
 	float dif_dur = 0;
@@ -261,7 +261,7 @@ bool parseurSpeed(float distance, int16_t angle ,uint16_t speed_ref)
 		uint16_t t100Hz_dist = 0;
 		if (distance > 0)
 		{
-			t100Hz_dist = (uint16_t) 480*distance/((float) speed_ref); //error flag if overflow
+			t100Hz_dist = (uint16_t) 480*(float)(distance)/((float) speed_ref); //error flag if overflow
 
 			nb_fin = (uint16_t)(fin*t100Hz_dist);
 			if (dif_dur < 0){
@@ -271,8 +271,8 @@ bool parseurSpeed(float distance, int16_t angle ,uint16_t speed_ref)
 				durR = nb_fin*(1-dif_dur);
 			}
 		}
-		else if (distance < 0){
-			t100Hz_dist = (uint16_t) -distance/((float) speed_ref); //error flag if overflow
+		else{
+			t100Hz_dist = (uint16_t) 480*((float)(-distance))/((float) speed_ref); //error flag if overflow
 
 			nb_fin = (uint16_t)(fin*t100Hz_dist);
 			if (dif_dur < 0){
@@ -294,7 +294,7 @@ bool parseurSpeed(float distance, int16_t angle ,uint16_t speed_ref)
 			{
 				speedRef_L[j] = -maxInitL; speedRef_R[j] = maxInitR;		// temps haut
 			}
-			for (uint16_t j=2; j<t100Hz_dist-nb_fin-1; j++)
+			for (uint16_t j=2; j<t100Hz_dist-0-1; j++)
 			{
 				speedRef_L[j] = -speed_ref; speedRef_R[j] = speed_ref;
 			}
@@ -336,17 +336,18 @@ bool parseurSpeed(float distance, int16_t angle ,uint16_t speed_ref)
 				float t = j/(t100Hz_dist-nb_fin-1);
 				// Left
 				if (t < durL){
-					speedRef_L[j] = (int)(speed_ref + (minL - speed_ref)*t/(durL));
+					speedRef_L[j] = -minL;
 				}
 				else {
-					speedRef_L[j] = -minL;
+					speedRef_L[j] = 0;
 				}
 				// Right
 				if (t < durR){
-					speedRef_R[j] = -(int)(speed_ref + (minR - speed_ref)*t/(durR));
+					speedRef_R[j] = minR;
 				}
 				else {
-					speedRef_R[j] = minR;
+
+					speedRef_R[j] = 0;
 				}
 			}
 			for (uint16_t j=t100Hz_dist-1; j<t100Hz_dist; j++)

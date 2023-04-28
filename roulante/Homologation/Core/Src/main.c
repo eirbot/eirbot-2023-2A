@@ -127,7 +127,6 @@ static void MX_TIM1_Init(void);
 static void MX_TIM8_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_TIM7_Init(void);
-void delay(uint32_t millis);
 /**
   * @brief  The application entry point.
   * @retval int
@@ -172,32 +171,32 @@ int main(void)
 
 	uint16_t speedRef = 1000;
 
-	HAL_Delay(1000);
+	while(HAL_GPIO_ReadPin(TIRETTE_GPIO_Port, TIRETTE_Pin));
 
 	en_MOVE = 1;
-	parseurSpeed(100,0,speedRef);
+	parseurSpeed(250,0,speedRef);
 	while(en_MOVE);
 	HAL_Delay(100);
-//
-//	HAL_GPIO_WritePin(PINCE_GPIO_Port, PINCE_Pin, GPIO_PIN_SET);
-//	HAL_Delay(10);
-//	HAL_GPIO_WritePin(PINCE_GPIO_Port, PINCE_Pin, GPIO_PIN_RESET);
-//	HAL_Delay(5000);
-//
-//	en_MOVE = 1;
-//	parseurSpeed(-300,0,speedRef);
-//	while(en_MOVE);
-//	HAL_Delay(100);
-//
-//	HAL_GPIO_WritePin(PINCE_GPIO_Port, PINCE_Pin, GPIO_PIN_SET);
-//	HAL_Delay(10);
-//	HAL_GPIO_WritePin(PINCE_GPIO_Port, PINCE_Pin, GPIO_PIN_RESET);
-//	HAL_Delay(1000);
-//
-//	en_MOVE = 1;
-//	parseurSpeed(10,0,speedRef);
-//	while(en_MOVE);
-//	HAL_Delay(1000);
+
+	HAL_GPIO_WritePin(PINCE_GPIO_Port, PINCE_Pin, GPIO_PIN_SET);
+	HAL_Delay(10);
+	HAL_GPIO_WritePin(PINCE_GPIO_Port, PINCE_Pin, GPIO_PIN_RESET);
+	HAL_Delay(5000);
+
+	en_MOVE = 1;
+	parseurSpeed(-250,0,speedRef);
+	while(en_MOVE);
+	HAL_Delay(100);
+
+	HAL_GPIO_WritePin(PINCE_GPIO_Port, PINCE_Pin, GPIO_PIN_SET);
+	HAL_Delay(10);
+	HAL_GPIO_WritePin(PINCE_GPIO_Port, PINCE_Pin, GPIO_PIN_RESET);
+	HAL_Delay(3000);
+
+	en_MOVE = 1;
+	parseurSpeed(250,0,speedRef);
+	while(en_MOVE);
+	HAL_Delay(1000);
 //
 //	en_MOVE = 1;
 //	parseurSpeed(120,0,speedRef);
@@ -224,12 +223,6 @@ int main(void)
 	{
 
 	}
-}
-
-void delay(uint32_t millis){
-	tick_millis = 0;
-	while(tick_millis/10 == millis);
-	tick_millis = 0;
 }
 
 /**
@@ -710,6 +703,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : TIRETTE_Pin */
+  GPIO_InitStruct.Pin = TIRETTE_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(TIRETTE_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : H1_L_Pin H2_L_Pin H3_L_Pin H1_R_Pin
                            H2_R_Pin H3_R_Pin */

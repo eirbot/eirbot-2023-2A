@@ -109,7 +109,7 @@ void writeCommand_R(struct PWM *PWM, struct dataSpeed *data);
 void PIDS_Prop(struct PID *Prop, struct dataSpeed *data_L,struct dataSpeed *data_R, struct hall *hall_L, struct hall *hall_R); //Speed P corrector
 void PIDS_PI(struct PID *Prop, struct dataSpeed *data_L,struct dataSpeed *data_R, struct hall *hall_L, struct hall *hall_R); //Speed PI corrector
 
-volatile bool parseurSpeed(float distance, int16_t angle, uint16_t speed_ref);
+volatile bool parseurSpeed(int16_t distance, int16_t angle, uint16_t speed_ref);
 
 void generateSpeed();
 #endif /* INC_FUNCTIONS_H_ */

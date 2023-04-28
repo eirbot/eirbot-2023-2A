@@ -71,6 +71,8 @@ void Error_Handler(void);
 #define IA_R_GPIO_Port GPIOC
 #define PINCE_Pin GPIO_PIN_0
 #define PINCE_GPIO_Port GPIOA
+#define TIRETTE_Pin GPIO_PIN_1
+#define TIRETTE_GPIO_Port GPIOA
 #define USART_TX_Pin GPIO_PIN_2
 #define USART_TX_GPIO_Port GPIOA
 #define USART_RX_Pin GPIO_PIN_3
