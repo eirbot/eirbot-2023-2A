@@ -174,17 +174,17 @@ int main(void)
 	while(HAL_GPIO_ReadPin(TIRETTE_GPIO_Port, TIRETTE_Pin));
 
 	en_MOVE = 1;
-	parseurSpeed(250,0,speedRef);
+	parseurSpeed(220,0,speedRef);
 	while(en_MOVE);
 	HAL_Delay(100);
 
 	HAL_GPIO_WritePin(PINCE_GPIO_Port, PINCE_Pin, GPIO_PIN_SET);
 	HAL_Delay(10);
 	HAL_GPIO_WritePin(PINCE_GPIO_Port, PINCE_Pin, GPIO_PIN_RESET);
-	HAL_Delay(5000);
+	HAL_Delay(4000);
 
 	en_MOVE = 1;
-	parseurSpeed(-250,0,speedRef);
+	parseurSpeed(-220,0,speedRef);
 	while(en_MOVE);
 	HAL_Delay(100);
 
@@ -194,7 +194,7 @@ int main(void)
 	HAL_Delay(3000);
 
 	en_MOVE = 1;
-	parseurSpeed(250,0,speedRef);
+	parseurSpeed(220,0,speedRef);
 	while(en_MOVE);
 	HAL_Delay(1000);
 //
